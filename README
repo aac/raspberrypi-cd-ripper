@@ -8,6 +8,11 @@ and subsequently rip the audio CD. After ripping the CD, the scripts
 copy the files to Dropbox and trigger a Zapier webhook. You can easily
 edit the scripts to run whatever you want when the ripping is complete.
 
+I will happily accept pull requests for changes and improvements and appreciate
+any input and suggestions. I'm not planning to build this beyond my personal
+needs but I hope it will be a useful resource for other people with similar
+goals.
+
 ### Components
 1. `/etc/udev/rules.d/99-cd-audio-processing.rules`
 This script tells *udev* what to do when a disc is inserted into the CD drive
