@@ -1,0 +1,1 @@
+SUBSYSTEM=="block", KERNEL=="sr0", ACTION=="change", RUN+="/bin/systemctl start rip-audio-cd@sr0.service"
