@@ -100,7 +100,7 @@ they can't move forward.
 #### Auto-run Errors
 Sometimes the scripts don't run on insertion. Here's what I do:
 
-1. *eject* the CD and put it back in.
+1. `eject` the CD and put it back in.
 2. Check the status of the *systemd* service with `systemctl status rip-audio-cd@sr0.service`
 3. Restart the service with `sudo systemctl restart rip-audio-cd@sr0.service`
 
