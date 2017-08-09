@@ -14,13 +14,12 @@ needs but I hope it will be a useful resource for other people with similar
 goals.
 
 ### Components
-1. `/etc/udev/rules.d/99-cd-audio-processing.rules`
-This script tells *udev* what to do when a disc is inserted into the CD drive
+1. `/etc/udev/rules.d/99-cd-audio-processing.rules` This script tells *udev* what to do when a disc is inserted into the CD drive
 (`sr0` here). This rule tells *udev* to run a *systemd* service. We have to use
 a service instead of running the script directly because *udev* kills long
 running scripts.
 
- Call `udevadm control --reload` to force *udev* to load this rule for the drive
+   Call `udevadm control --reload` to force *udev* to load this rule for the drive
  without a reboot.
 
 2. `/etc/systemd/system/rip-audio-cd@service` This just wraps the actual CD
@@ -31,7 +30,7 @@ the CD, and prevents the script from running multiple times if there are
 multiple events. (I don't know if the locking is necessary with the *udev*
 setup. It's something I found in tutorials and kept.)
 
- The real work is being done by *abcde*, a command line ripping program. The
+   The real work is being done by *abcde*, a command line ripping program. The
  script redirects the log and errors to `/var/log/cdrip.log`. If *abcde* throws
  an error, this script makes sure to call *eject*.
 
@@ -40,7 +39,7 @@ in flags but it's better (and standard) to set things up here. My configuration
 is set to rip files and encode them as both flac and mp3. It then puts the
 encoded files in `/srv/ripped-music/flac` and `/srv/ripped-music/mp3`.
 
- The `post_encode()` function sets up the rest of the work. It logs the artist
+   The `post_encode()` function sets up the rest of the work. It logs the artist
  and album name in `/srv/ripped-music/last-rip.log` for use by the remaining
  scripts, and then it runs the scripts.
 
@@ -48,7 +47,7 @@ encoded files in `/srv/ripped-music/flac` and `/srv/ripped-music/mp3`.
 and `curl` to add the files to Dropbox. (You may need to `apt-get install
 curl`.)
 
- You'll need a Dropbox *bearer token* for authentication. I created a Dropbox
+   You'll need a Dropbox *bearer token* for authentication. I created a Dropbox
  API app for myself (which only has access to its own folder in Dropbox), and
  then copied the bearer token from the API website. Just replace the
  `**DROPBOX_BEARER_TOKEN**` in the script with your actual token.
@@ -58,7 +57,7 @@ curl`.)
 webhook. The webhook is setup to add a row to an AirTable table. (Another
 Zapier trigger sends me an email when that new row is added.)
 
- You can create a new webhook trigger on the Zapier website. Just replace the
+   You can create a new webhook trigger on the Zapier website. Just replace the
  `**ZAPIER_WEBHOOK**` in the script with the url for the webhook.
 
 
@@ -87,12 +86,12 @@ Here's how I diagnose:
 
 2. Check the *abcde* `status` and `errors` files.
 
- *abcde* creates a temp folder in the root directory, `/abcde.???`
+   *abcde* creates a temp folder in the root directory, `/abcde.???`
  (where `???` is just to say that whatever follows the `.` is random). Usually
  that directory will contain a `status` file and sometimes an `errors` file with
  details.
-
-Sometimes *cdparanoia*, which *abcde* uses to rip the audio, throws errors
+ 
+   Sometimes *cdparanoia*, which *abcde* uses to rip the audio, throws errors
 when reading, which shuts down the whole script. I've had this happen on perfect,
 just opened CDs. I'm not sure how to fix this. Sometimes you can just put the
 CD back in and *abcde* will pick up where it left off. Some CDs just seem like
