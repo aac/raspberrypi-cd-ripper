@@ -15,13 +15,12 @@ goals.
 
 ### Components
 1. `/etc/udev/rules.d/99-cd-audio-processing.rules` This script tells *udev* what to do when a disc is inserted into the CD drive
-(`sr0` here). This rule tells *udev* to run a *systemd* service. We have to use
-a service instead of running the script directly because *udev* kills long
-running scripts.
+(`sr0` here). This rule tells *udev* to run a *systemd* service.
 
    Call `udevadm control --reload` to force *udev* to load this rule for the drive
  without a reboot.
 
+    We have to use a service instead of running the script directly because *udev* kills long running scripts. And we have to call `/bin/systemctl` instead of using `SYSTEMD_WANTS` because *change* events don't do the `SYSTEMD_WANTS` tasks.
 2. `/etc/systemd/system/rip-audio-cd@service` This just wraps the actual CD
 ripping script in a *systemd* service.
 
@@ -108,6 +107,9 @@ Sometimes the scripts don't run on insertion. Here's what I do:
 Some CDs haven't been found by the CDDB lookups. Not sure what to do with this yet. The script
 just rips them as Unknown Artist and Unknown Album and Track 1-N.
 
+#### Album Art
+In theory *abcde* supports getting and embedding the album art, but I haven't got it working yet.
+
 #### Double Albums
 This depends a bit on what's in the CDDB database. If both discs have the same
 album name, the files will get ripped to the same directory but both discs'
@@ -118,3 +120,11 @@ but an automated solution would be lovely.
 I put files a) where they worked and b) where they made sense based on what I
 could find on the web. I think in general all of these directories are
 appropriate, but I wouldn't be surprised if there are better places to put them.
+
+### References
+- For ripping:  [https://somewideopenspace.wordpress.com/yet-another-headless-cd-ripper-and-mpd-on-raspberry-pi-installation-guide-yahcdramorpig/rip-music-from-cd/](https://somewideopenspace.wordpress.com/yet-another-headless-cd-ripper-and-mpd-on-raspberry-pi-installation-guide-yahcdramorpig/rip-music-from-cd/)
+- For *abcde* configuration: [http://www.andrews-corner.org/linux/abcde/index.html](http://www.andrews-corner.org/linux/abcde/index.html)
+- For running when the disc is inserted: [https://somewideopenspace.wordpress.com/yet-another-headless-cd-ripper-and-mpd-on-raspberry-pi-installation-guide-yahcdramorpig/start-ripping-when-cd-is-inserted/](https://somewideopenspace.wordpress.com/yet-another-headless-cd-ripper-and-mpd-on-raspberry-pi-installation-guide-yahcdramorpig/start-ripping-when-cd-is-inserted/)
+- For the `post_encode()` stuff: [https://lists.einval.com/pipermail/abcde-users/2015-June/000161.html](https://lists.einval.com/pipermail/abcde-users/2015-June/000161.html)
+- For *systemd* and *udev*: [https://forums.opensuse.org/showthread.php/485261-Script-run-from-udev-rule-gets-killed-shortly-after-start](https://forums.opensuse.org/showthread.php/485261-Script-run-from-udev-rule-gets-killed-shortly-after-start)
+- For understanding why `SYSTEMD_WANTS` wasn't what I needed: [https://superuser.com/questions/862533/how-to-start-a-systemd-service-when-a-dvd-is-inserted/862575#862575](https://superuser.com/questions/862533/how-to-start-a-systemd-service-when-a-dvd-is-inserted/862575#862575) and [https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=151450&p=993856](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=151450&p=993856)
