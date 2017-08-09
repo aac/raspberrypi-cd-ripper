@@ -90,11 +90,9 @@ Here's how I diagnose:
  that directory will contain a `status` file and sometimes an `errors` file with
  details.
 
-   Sometimes *cdparanoia*, which *abcde* uses to rip the audio, throws errors
-when reading, which shuts down the whole script. I've had this happen on perfect,
-just opened CDs. I'm not sure how to fix this. Sometimes you can just put the
-CD back in and *abcde* will pick up where it left off. Some CDs just seem like
-they can't move forward.
+   Sometimes *cdparanoia*, which *abcde* uses to rip the audio, throws errors when reading, which shuts down the whole script. I've had this happen on perfect, just opened CDs. I'm not sure how to fix this. Sometimes you can just put the CD back in and *abcde* will pick up where it left off. Some CDs just seem likethey can't move forward.
+
+The annoying part of these errors is that the rest of the scripts still run, so it still gets uploaded to AirTable and the subset of songs that have completed are uploaded to Dropbox. As a result, I end up looking at the upload folder and manually checking to make sure the songs are there. It'd be nice to have an automated way to detect errors and flag them. 
 
 #### Auto-run Errors
 Sometimes the scripts don't run on insertion. Here's what I do:
