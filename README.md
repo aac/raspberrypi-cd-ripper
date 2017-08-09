@@ -90,7 +90,7 @@ Here's how I diagnose:
  (where `???` is just to say that whatever follows the `.` is random). Usually
  that directory will contain a `status` file and sometimes an `errors` file with
  details.
- 
+
    Sometimes *cdparanoia*, which *abcde* uses to rip the audio, throws errors
 when reading, which shuts down the whole script. I've had this happen on perfect,
 just opened CDs. I'm not sure how to fix this. Sometimes you can just put the
@@ -113,3 +113,8 @@ This depends a bit on what's in the CDDB database. If both discs have the same
 album name, the files will get ripped to the same directory but both discs'
 tracks will be numbered starting at 1. Right now I'll probably fix it manually
 but an automated solution would be lovely.
+
+#### General Linux Stuff
+I put files a) where they worked and b) where they made sense based on what I
+could find on the web. I think in general all of these directories are
+appropriate, but I wouldn't be surprised if there are better places to put them.
